@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\User;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Route;
@@ -72,22 +74,36 @@ Route::group(['middleware' => ['auth']],function () {
 
 
 
+Route::GET('/1', function(){
+	$user = User::create([
+		'name'=>"jack",
+		'email'=>"yoxo@gmail.com",
+		'username'=>"Autoplus",
+		'prenom'=>"pow",
+		'tel'=>"0600000000",
+		'adresse'=>"lissasfa, kasbat amine 1",
+		'contrat'=>"CDI",
+		'metier'=>"Developpeur",
+		'mobilite'=>"Nationale",
+		'password'=>Hash::make("123456789")
+	]);
+	
+});
 
 
-Route::get('/1', function() {
-     $exitCode = Artisan::call('route:cache');
-     echo 'Routes cache cleared </br>';
-     $exitCode = Artisan::call('config:cache');
-     echo 'Config cache cleared </br>';
-     $exitCode = Artisan::call('cache:clear');
-     echo 'Application cache cleared </br>';
-     $exitCode = Artisan::call('view:clear');
-     echo 'View cache cleared </br>';
-     $exitCode = Artisan::call('optimize:clear');
-     echo 'optimize cleared </br>';
-     $exitCode = Artisan::call('storage:link');
-     echo 'storage linked </br>';
- });
- 
+Route::get('/clear-cache', function() {
+	$exitCode = Artisan::call('route:cache');
+	echo 'Routes cache cleared </br>';
+	$exitCode = Artisan::call('config:cache');
+	echo 'Config cache cleared </br>';
+	$exitCode = Artisan::call('cache:clear');
+	echo 'Application cache cleared </br>';
+	$exitCode = Artisan::call('view:clear');
+	echo 'View cache cleared </br>';
+	$exitCode = Artisan::call('optimize:clear');
+	echo 'Optimize cleared </br>';
+	// $exitCode = Artisan::call('storage:link');
+	// echo 'storage linked </br>';
+});
 
 Auth::routes();

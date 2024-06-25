@@ -6,7 +6,6 @@
 @section('content')
 
 
-
 <section class="wow fadeIn border-top text-white white-link bg-black padding-50px-tb sm-padding-30px-tb page-title-small">
 	<div class="container">
 		<div class="row align-items-center alt-font">
@@ -23,7 +22,7 @@
 					<ul>
 						<li><a href="{{ route('home') }}" class="text-white">Accueil</a></li>
 
-						<li class="text-gray">ESPACE CANDIDATS</li>
+						<li class="text-gray">ESPACE </li>
 					</ul>
 					<!-- end breadcrumb -->
 				</div>

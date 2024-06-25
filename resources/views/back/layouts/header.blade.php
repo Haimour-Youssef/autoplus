@@ -1,5 +1,5 @@
 <!-- start: HEADER -->
-<div class="navbar navbar-inverse navbar-fixed-top">
+<div class="navbar navbar-inverse navbar-fixed-top" style="background: rgb(39 32 32 / 90%)">
 	<!-- start: TOP NAVIGATION CONTAINER -->
 	<div class="container">
 		<div class="navbar-header">
@@ -10,8 +10,11 @@
 			<!-- end: RESPONSIVE MENU TOGGLER -->
 			<!-- start: LOGO -->
 			<a class="navbar-brand" href="{{ route('categories.index') }}">
-				AutoPlus<i class="clip-clip"></i>ma
+				<img src="https://autoplus.net.ma/asset/images/logo.png" alt="AutoPlus" srcset="">
 			</a>
+			{{-- <a class="navbar-brand" href="{{ route('categories.index') }}">
+				AutoPlus<i class="clip-clip"></i>ma
+			</a> --}}
 			<!-- end: LOGO -->
 		</div>
 		<div class="navbar-tools">
@@ -22,7 +25,7 @@
 				<li class="dropdown current-user">
 					<a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" data-close-others="true" href="#">
 						<img src="" width="35" class="circle-img" alt="">
-						<span class="username">ADMIN</span>
+						<span class="username" style="color : white;">ADMIN</span>
 						<i class="clip-chevron-down"></i>
 					</a>
 					<ul class="dropdown-menu">

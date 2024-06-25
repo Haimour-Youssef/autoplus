@@ -74,7 +74,11 @@
 
 			</li>
 			
-
+			<li class="">
+				<a data-object="Référencement" href="{{ route('referencements.index') }}"><i class="clip-user"></i>
+					<span class="title"> Référencement  </span><span class="badge badge-new contacts-counter">{{ App\Models\Referencement::count() }}</span>
+				</a>
+			</li>
 			
 
 			
