@@ -31,7 +31,7 @@ trait ReferencementTrait
 
             // Resize and save the image
             Intervention::make($originalImage)
-                ->resize(85, null, function ($constraint) {
+                ->resize(200, null, function ($constraint) {
                     $constraint->aspectRatio();
                 })
                 ->save(public_path("storage/{$folder}/{$original}{$path}"));

@@ -3,11 +3,6 @@
 
 @section('content')
 
-
-
-
-
-
 <section class="wow fadeIn top-space border-top text-white white-link bg-black padding-50px-tb sm-padding-30px-tb page-title-small">
 	<div class="container">
 		<div class="row align-items-center alt-font">

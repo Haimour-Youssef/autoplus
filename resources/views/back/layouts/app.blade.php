@@ -17,6 +17,7 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<meta content="" name="description" />
 		<meta content="" name="author" />
+
 		<!-- end: META -->
 		<!-- start: MAIN CSS -->
 		@include('back.layouts.css')

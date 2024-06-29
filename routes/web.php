@@ -74,23 +74,6 @@ Route::group(['middleware' => ['auth']],function () {
 
 
 
-Route::GET('/1', function(){
-	$user = User::create([
-		'name'=>"jack",
-		'email'=>"yoxo@gmail.com",
-		'username'=>"Autoplus",
-		'prenom'=>"pow",
-		'tel'=>"0600000000",
-		'adresse'=>"lissasfa, kasbat amine 1",
-		'contrat'=>"CDI",
-		'metier'=>"Developpeur",
-		'mobilite'=>"Nationale",
-		'password'=>Hash::make("123456789")
-	]);
-	
-});
-
-
 Route::get('/clear-cache', function() {
 	$exitCode = Artisan::call('route:cache');
 	echo 'Routes cache cleared </br>';

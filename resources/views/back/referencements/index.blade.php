@@ -79,13 +79,13 @@
 								</a>
 								
 							</div>
-							<div class="col-md-2 ">
+							{{-- <div class="col-md-2 ">
 								
 								<a class="btn btn-danger" href="{{ route('generate') }}">
 									Generate SEO <i class="fa fa-refresh"></i>
 								</a>
 								
-							</div>
+							</div> --}}
 							
 							
 							

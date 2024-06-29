@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('referencements', function (Blueprint $table) {
             $table->id();
             $table->string('url')->default('');
-            $table->string('page');
+            $table->boolean('indexation')->default(false);
             $table->string('name')->nullable();
             $table->text('content')->nullable();
             $table->string('property')->nullable();

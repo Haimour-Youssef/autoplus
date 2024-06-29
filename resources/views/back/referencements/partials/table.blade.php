@@ -2,14 +2,14 @@
 	<thead>
 		<tr>
 			
-			<th class="center">Photo</th>
-			<th class="sorting" data-sorting-name="Page" data-sorting-type="desc">Page</th>
+			<th class="center">Picture</th>
+			<th class="sorting" data-sorting-name="Name" data-sorting-type="desc">Meta Title</th>
+			<th class="sorting" data-sorting-name="Content" data-sorting-type="desc">Meta Description</th>
 			<th class="sorting" data-sorting-name="Url" data-sorting-type="desc">Url</th>
-			<th class="sorting" data-sorting-name="Name" data-sorting-type="desc">Name</th>
-			<th class="sorting" data-sorting-name="Content" data-sorting-type="desc">Content</th>
-			<th class="sorting" data-sorting-name="Property" data-sorting-type="desc">Property</th>
+			<th class="sorting" data-sorting-name="Indexation" data-sorting-type="desc">Indexation</th>
+			{{-- <th class="sorting" data-sorting-name="Property" data-sorting-type="desc">Meta Keywords</th>
 			<th class="sorting" data-sorting-name="Rel" data-sorting-type="desc">Rel</th>
-			<th class="sorting" data-sorting-name="Href" data-sorting-type="desc">Href</th>
+			<th class="sorting" data-sorting-name="Href" data-sorting-type="desc">Href</th> --}}
 			
 			<th></th>
 		</tr>
@@ -30,19 +30,23 @@
 				<img width="60" src="{{ $data->image->url('') }}">
 				@endif
 			</td>
-			<td>{{ $data->page }}</td>
-			<td>{{ $data->url }}</td>
-			<td>{{ $data->name }}</td>
-			<td>{{ $data->content }}</td>
 			
-			<td >{{ $data->property }}</td>
+			<td>{{ $data->name }}</td>
+			<td>{{ substr($data->content,0,30) }}...</td>
+			<td>{{ $data->url }}</td>
+			<td class="text-center">
+				@if ($data->indexation == 1)
+				<i class="fa fa-check" aria-hidden="true"></i>
+				@else
+				<i class="fa fa-times"></i>
+				@endif
+			</td>
+
+			{{-- <td >{{ $data->property }}</td>
 			<td >{{ $data->rel }}</td>
-			<td >{{ $data->href }}</td>
+			<td >{{ $data->href }}</td> --}}
 			
 			<td class="center">
-				
-				
-				
 				
 				<div >
 					<div class="btn-group">

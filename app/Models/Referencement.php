@@ -11,7 +11,7 @@ class Referencement extends Model
 {
     use HasFactory, Notifiable, softDeletes;
 
-    protected $fillable = ['url','name','content','property','rel','href','page'];
+    protected $fillable = ['url','name','content','property','rel','href','indexation'];
 
 
     public function image() {

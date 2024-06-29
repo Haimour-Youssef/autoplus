@@ -26,8 +26,11 @@ class ReferencementStore extends FormRequest
         return [
 
             'url' => 'bail|min:5|required',
-            'page' => 'bail|min:3|required',
-            
+            'name' => '',
+            'content' => '',
+            'property' => '',
+            'rel' => '',
+            'href' => '',
            
             //'classement' => 'bail|integer|required',
             'picture' => 'image|mimes:jpeg,jpg,png'

@@ -10,10 +10,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ReferencementStore;
 use App\Http\Requests\ReferencementUpdate;
 use Illuminate\Support\Facades\File;
+use Intervention\Image\Facades\Image;
+
 
 class SeoController extends Controller
 {
     use ReferencementTrait;
+
 
     //
     public function index()
@@ -25,18 +28,19 @@ class SeoController extends Controller
             ]
         );
     }
+
     public function create()
     {
         return view('back.referencements.create');
     }
 
-
-
     public function store(ReferencementStore $request)
     {
 
-        //$validatedData = $request->validated();
-        $seo = Referencement::create($request->all());
+        $validatedData = $request->validated();
+        ($request->indexation == "on") ? $validatedData['indexation'] = true : $validatedData['indexation'] = false;
+
+        $seo = Referencement::create($validatedData);
 
         $this->saveImageTrait($request->picture, $seo);
 
@@ -54,8 +58,9 @@ class SeoController extends Controller
         $seo = Referencement::findOrFail($id);
 
         $validatedData = $request->validated();
+        ($request->indexation == "on") ? $validatedData['indexation'] = true : $validatedData['indexation'] = false;
 
-        $seo->fill($request->all());
+        $seo->fill($validatedData);
         $seo->save();
 
         $this->saveImageTrait($request->picture, $seo);
@@ -75,65 +80,67 @@ class SeoController extends Controller
 
     // *****************
 
-    public function generateSeo()
+    public static function generateSeo($url)
     {
 
-        $referencements = Referencement::whereNull('deleted_at')->groupBy('page')->get("page");
+        $metaList = [
+            "url" => "url",
+            "name" => "title",
+            "content" => "description",
+            "property" => "keywords",
+            "rel" => "rel",
+            "href" => "href",
+        ];
+        $file = "";
+        $index = "";
+        $title = true;
+        $referencements = Referencement::where("url", "$url")->whereNull('deleted_at')->get(['id', 'url', 'name', 'content', 'property', 'rel', 'href', 'indexation']);
 
-        foreach ($referencements as $referencement) {
-
-            foreach (Referencement::where("page", "$referencement->page")->get(['id','url', 'name', 'content', 'property', 'rel', 'href']) as $data) {
-                if ($data->image) {
-                $path= $data->image->url('');
-                }
-                $file = "
-                <!DOCTYPE html>
-                <html lang='en'>
-                <head>
-                    <meta charset='UTF-8'>
-                    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-                    <meta ";
-                foreach ($data->getAttributes() as $key => $value) {
-                    if ($key == "id") {
-                        continue;
-                    }
-                    if ($value != "") {
-                        $file .= "$key='$value' ";
-                    }
-                }
-                $file .= ">
-                <title>$referencement->page</title>
-                <meta http-equiv='refresh' content=\"7; url='$data->url'\" />";
-                if ($data->image) {
-                    $file .="<link rel='$data->rel' href='$path'>";
-                }
-                $file .= "</head>
-                <body>
-                    <p>You will be redirected to $data->url in <span id='countdown'></span>!</p>
-                    <script>
-                        // Set the initial time (in seconds)
-                        let timeleft = 5;
-
-                        // Create an interval that updates the countdown every second
-                        const downloadTimer = setInterval(function() {
-                            if (timeleft <= 0) {
-                                clearInterval(downloadTimer);
-                                document.getElementById('countdown').innerHTML = 'Finished';
-                            } else {
-                                document.getElementById('countdown').innerHTML = timeleft + ' seconds remaining';
-                            }
-                            timeleft -= 1;
-                        }, 1000);
-                        </script>
-                </body>
-                </html>
-                ";
+        foreach ($referencements as $data) {
+            if ($data->image) {
+                $path = $data->image->url('');
+                $info = pathinfo($path);
+                $extension = $info['extension'];
             }
 
-            File::put("Pages/$referencement->page.html", $file);
-            File::put("../Pages/$referencement->page.html", $file);
+
+            foreach ($data->getAttributes() as $key => $value) {
+                if ($key == "id") {
+                    continue;
+                }
+                if ($key == "url") {
+                    continue;
+                }
+                if ($key == "name") {
+                    if ($value == '') {
+                        $title = false;
+                        continue;
+                    }else {
+                        $file .= "<title>$value</title>";
+                    }
+                }
+                if ($key == "indexation") {
+                    if ($value == true) {
+                        $index = "<meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'>";
+                    }
+                    continue;
+                }
+                if ($value != "") {
+                    $file .= "<meta name = '" . $metaList["$key"] . "' content = '$value' >";
+                }
+            }
+            if ($data->image) {
+                $file .= "<meta property='og:image' content='https://autoplus.net.ma$path'>";
+                $file .= "<meta property='og:image:type' content='$extension'>";
+                $file .= "<meta property='og:image:width' content='200'>";
+                $file .= "<meta property='og:image:height' content='null'>";
+            }
         }
-        
-        return redirect()->route('referencements.index');
+
+        if (!$referencements->isNotEmpty()) {
+            $title = false;
+        }
+            echo $index . "" . $file;
+        return $title;
     }
 }

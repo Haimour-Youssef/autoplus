@@ -26,12 +26,12 @@ class ReferencementUpdate extends FormRequest
         return [
 
             'url' => 'bail|min:5|required',
-            'page' => 'bail|min:3|required',
-            // 'name' => 'bail|min:3|required',
-            // 'content' => 'bail|min:5|required',
-            // 'property' => 'bail|min:5|required',
-            // 'rel' => 'bail|min:5|required',
-            // 'href' => 'bail|min:5|required',
+            
+            'name' => '',
+            'content' => '',
+            'property' => '',
+            'rel' => '',
+            'href' => '',
            
             //'classement' => 'bail|integer|required',
             'picture' => 'image|mimes:jpeg,jpg,png'
